@@ -1,0 +1,5 @@
+IP: 84.201.177.93;
+name_taski: https://myyandexhost.ddns.net;
+name_kittygram: http://kittygramma.ddns.net;
+login: feninea@mail.ru;
+password: 22091998Fea;

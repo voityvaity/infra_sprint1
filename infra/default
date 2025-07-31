@@ -1,0 +1,36 @@
+server {
+    listen 80;
+    server_name kittygramma.ddns.net;
+
+    location / {
+        root /var/www/kittygram;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /media/ {
+        alias /var/www/kittygram/media/;
+        expires 30d;
+        access_log off;
+    }
+
+    location /api/ {
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        client_max_body_size 20M;
+    }
+
+    location /admin/ {
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        client_max_body_size 20M;
+    }
+
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root /usr/share/nginx/html;
+    }
+}
